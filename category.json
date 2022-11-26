@@ -1,11 +1,15 @@
 [
     {
-        "categoryName": "Best Seller Books"
+        "categoryName": "Best Seller Books",
+        "categoryId": "01"
+        
     },
     {
-        "categoryName": "Fictions"
+        "categoryName": "Fictions",
+        "categoryId": "02"
     },
     {
-        "categoryName": "Non-Fictions"
+        "categoryName": "Non-Fictions",
+        "categoryId": "02"
     }
 ]

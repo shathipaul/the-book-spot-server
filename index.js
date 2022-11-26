@@ -11,33 +11,20 @@ app.use(express.json());
 
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.j6khnv2.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri);
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run(){
     try{
-        const bookCategory = client.db('theBookSpot').collection('categoryName');
-        const bookCollection = client.db('theBookSpot').collection('categories');
+        const categoriesCollection = client.db('theBookSpot').collection('categories');
+        const bookCollection = client.db('theBookSpot').collection('bookCollection');
 
         app.get('/categories', async(req, res) =>{
             const query ={}
-            const cursor = bookCategory.find(query);
+            const cursor = categoriesCollection.find(query);
             const categories = await cursor.toArray();
             res.send(categories);
         })
-        app.get('/category', async(req, res) =>{
-            const query ={}
-            const cursor = bookCollection.find(query);
-            const category = await cursor.toArray();
-            res.send(category);
-        })
-
-        // app.get('/category/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: ObjectId(id) }
-        //     const categoryId = await bookCollection.findOne(query);
-        //     res.send(categoryId);
-        // })
+        
         app.get('/categories/:id', async (req, res) => {
             const id = req.params.id;
             const query = { categoryId: id }
@@ -45,6 +32,20 @@ async function run(){
             const categoryId = await cursor.toArray();
             res.send(categoryId);
         })
+        // app.get('/category', async(req, res) =>{
+        //     const query ={}
+        //     const cursor = bookCollection.find(query);
+        //     const category = await cursor.toArray();
+        //     res.send(category);
+        // })
+
+        // app.get('/category/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: ObjectId(id) }
+        //     const categoryId = await bookCollection.findOne(query);
+        //     res.send(categoryId);
+        // })
+       
     }
     finally{
 
